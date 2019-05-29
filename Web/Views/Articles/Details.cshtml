@@ -1,0 +1,32 @@
+﻿@model Web.ModelViews.ArticleView
+@using CafeT.Html
+@using CafeT.Time
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<head>
+    <meta name="keywords" content="@Model.MetaKeywords" />
+    <meta name="description" content="@Model.MetaDescription" />
+</head>
+<div class="row">
+    <div class="col-md-8">
+        @Html.Raw(Model.Content)
+    </div>
+    <div class="col-md-4">
+        @Html.Raw(Model.Description)
+        @*@Html.Raw("Ngày: " + Model.CreatedDate.TimeAgo())*@
+        @Html.Raw("Tác giả: " + Model.CreatedBy)<br />
+        <img src="@Model.ImageUrl" /> <br />
+        @Html.Raw("Views: " + Model.CountViews)
+    </div>
+</div>
+
+<p>
+    <a href="@Model.EditLink" title="Edit">Edit</a>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.EditLink }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
