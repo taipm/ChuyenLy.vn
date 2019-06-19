@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Web.ModelViews.ArticleView>
+
+@{
+    ViewBag.Title = ViewBag.Title;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        @Html.Partial("_Articles")
+    </div>
+    <div class="col-md-3">
+        @Html.Partial("_Paypal")
+
+        @Html.Partial("_Summary")
+    </div>
+
+</div>

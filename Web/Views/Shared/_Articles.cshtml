@@ -1,0 +1,69 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model PagedList<Web.ModelViews.ArticleView>
+
+@using CafeT.Text
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="card">
+    <div class="card-header">HÀNG NGÀN BÀI VIẾT</div>
+</div>
+<div id="paging">
+    @{
+        int count = 0;
+        <div class="row">
+            <div class="col-md-6">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <ul class="list-group">
+                        @if (count % 2 == 0)
+                        {
+                            <li class="list-group-item">
+                                @Html.Partial("_ArticleItem", item)
+                            </li>
+                        }
+
+                    </ul>
+
+                }
+            </div>
+            <div class="col-md-6">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <ul class="list-group">
+                        @if (count % 2 == 1)
+                        {
+                            <li class="list-group-item">
+                                @Html.Partial("_ArticleItem", item)
+                            </li>
+                        }
+
+                    </ul>
+
+                }
+            </div>
+
+        </div>
+    }
+
+    @Html.PagedListPager(Model, page =>
+                                Url.Action("Index","Articles", new { page = page, pageSize=10 }),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                    {
+                        Display = PagedListDisplayMode.IfNeeded,
+                        MaximumPageNumbersToDisplay = 5
+                    },
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "Post",
+                        UpdateTargetId = "paging",
+                        LoadingElementId = "divProcessing"
+                    }))
+</div>
+
+
